@@ -1,2 +1,3 @@
-# get-a-gig
-Find the job that suits your unique profile! 
+# Get a Gig
+
+Uncover that job made just for you!
