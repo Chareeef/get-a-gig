@@ -26,6 +26,14 @@ export async function getJobs(category: jobCategory): Promise<job[]> {
     const company = $(job).find("span.company:first-child").text();
     const url = $(job).find("> a").attr("href") || "";
     const date = $(job).find(".listing-date__date").text();
+    // Select the div with the background image and extract the logo URL
+    const logoUrl =
+      $(job)
+        .find(".flag-logo")
+        .css("background-image")
+        ?.replace(/url\((['"])?(.*?)\1\)/gi, "$2")
+        .split(",")[0] || "";
+
     return {
       title,
       category,
@@ -33,6 +41,7 @@ export async function getJobs(category: jobCategory): Promise<job[]> {
       company,
       url,
       date,
+      logoUrl,
       description: "",
       applyUrl: "",
     };
