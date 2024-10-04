@@ -11,4 +11,6 @@ export type job = {
   company: string;
   url: string;
   date: string;
+  description: string;
+  applyUrl: string;
 };
