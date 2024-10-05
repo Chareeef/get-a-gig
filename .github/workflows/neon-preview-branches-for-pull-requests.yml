@@ -35,19 +35,28 @@ jobs:
       || github.event.action == 'reopened')
     runs-on: ubuntu-latest
     steps:
-      - name: Create Neon Branch
+      - name: Check if branch exists
+        id: check_branch_exists
+        run: |
+          BRANCH_NAME="preview/pr-${{ github.event.number }}-${{ needs.setup.outputs.branch }}"
+          EXISTING_BRANCH=$(psql ${{ secrets.NEON_DATABASE_URL }} -t -c "SELECT branch_name FROM neon_branches WHERE branch_name='$BRANCH_NAME'")
+          echo "branch_name=$EXISTING_BRANCH" >> $GITHUB_ENV
+
+      - name: Create Neon Branch if it doesn't exist
         id: create_neon_branch
+        if: ${{ env.branch_name == '' }}
         uses: neondatabase/create-branch-action@v5
         with:
           project_id: ${{ vars.NEON_PROJECT_ID }}
           branch_name: preview/pr-${{ github.event.number }}-${{ needs.setup.outputs.branch }}
+          database: get-a-gig
           api_key: ${{ secrets.NEON_API_KEY }}
 
       - name: Run Migrations
         run: npm run db:migrate
         env:
-          DATABASE_URL: "${{ steps.create_neon_branch.outputs.db_url_with_pooler }}"
-          
+          DATABASE_URL: "${{ steps.create_neon_branch.outputs.db_url_with_pooler }}?dbname=get-a-gig"
+
   delete_neon_branch:
     name: Delete Neon Branch
     needs: setup
@@ -59,4 +68,5 @@ jobs:
         with:
           project_id: ${{ vars.NEON_PROJECT_ID }}
           branch: preview/pr-${{ github.event.number }}-${{ needs.setup.outputs.branch }}
+          database: get-a-gig
           api_key: ${{ secrets.NEON_API_KEY }}
