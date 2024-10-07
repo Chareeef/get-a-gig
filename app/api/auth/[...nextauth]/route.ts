@@ -4,11 +4,11 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
@@ -60,11 +60,17 @@ export const authOptions: NextAuthOptions = {
     error: "/auth/error", // TODO: Add error page
   },
   callbacks: {
-    async session({ session, user, token }) {
+    async jwt({ token, user }) {
+      // If the user is defined during the login process, attach the user.id to the token
       if (user) {
-        session.user.id = user.id;
-      } else if (token) {
-        session.user.id = token.sub;
+        token.sub = user.id; // Attach the user's ID to the token's sub
+      }
+      return token;
+    },
+
+    async session({ session, token }) {
+      if (session.user && token.sub) {
+        session.user.id = token.sub; // Attach token.sub to session.user.id
       }
       return session;
     },
