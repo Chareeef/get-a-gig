@@ -5,7 +5,7 @@ import { satoshi } from "./fonts/fonts";
 export default function Home(): JSX.Element {
   return (
     <div
-      className={`${satoshi.className} flex h-[500px] flex-col items-center justify-center gap-4 px-10`}
+      className={`${satoshi.className}  flex h-[500px] flex-col items-center justify-center gap-4 px-10 text-white`}
     >
       <h1 className="text-center text-6xl font-bold">
         Find Your Dream Remote Job in Tech
@@ -14,6 +14,7 @@ export default function Home(): JSX.Element {
         Get-a-Gig connects ALX Software Engineering students with exciting
         remote job opportunities in the tech industry.
       </h2>
+      <button>Get Started</button>
     </div>
   );
 }
