@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
-import { job, jobCategory } from "../types";
+import { job, jobCategory } from "@/types/jobs";
 
 export async function getJobs(category: jobCategory): Promise<job[]> {
   // Make a GET request to the weworkremotely jobs page
