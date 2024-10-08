@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.className} bg-black`}>
+      <body className={`${geistSans.className}`}>
         <AuthProvider>
           <Navbar />
           {children}
