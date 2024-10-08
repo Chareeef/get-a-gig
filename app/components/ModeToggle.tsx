@@ -1,6 +1,4 @@
 "use client";
-
-import * as React from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
@@ -24,15 +22,15 @@ export function ModeToggle() {
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent align="start" className="divide-y divide-gray-200">
         <DropdownMenuItem onClick={() => setTheme("light")}>
-          Light
+          <span className="w-full hover:text-yellow-400">Light</span>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("dark")}>
-          Dark
+          <span className="w-full hover:text-yellow-400">Dark</span>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("system")}>
-          System
+          <span className="w-full hover:text-yellow-400">System</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
