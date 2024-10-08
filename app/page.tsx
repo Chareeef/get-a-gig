@@ -1,5 +1,5 @@
 "use client";
-import { CodeIcon, GlobeIcon, SearchIcon } from "lucide-react";
+import { CodeIcon, GlobeIcon, Pen } from "lucide-react";
 import { Button } from "./components/ui/button";
 import { Card, CardContent } from "./components/ui/card";
 import { satoshi } from "./fonts/fonts";
@@ -8,6 +8,26 @@ import Link from "next/link";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 export default function Home() {
+  const features = [
+    {
+      title: "100% Remote Jobs",
+      description:
+        "All jobs on our platform are fully remote, giving you the freedom to work from anywhere.",
+      icon: GlobeIcon,
+    },
+    {
+      title: "Tech-Focused",
+      description:
+        "Curated job listings specifically for software engineers and tech professionals.",
+      icon: CodeIcon,
+    },
+    {
+      title: "Cover Letter Generator",
+      description:
+        "Our platform allows you to generate a cover letter for any job you apply for.",
+      icon: Pen,
+    },
+  ];
   const teamMembers = [
     {
       name: "Abdelrahman Hany",
@@ -46,48 +66,29 @@ export default function Home() {
         id="features"
         className="w-full py-12 bg-gray-100 md:py-24 lg:py-32 dark:bg-gray-800"
       >
-        <div className="container px-4 md:px-6">
+        <div className="px-10 py-4">
           <h2 className="mb-12 text-3xl font-bold tracking-tighter text-center text-black sm:text-5xl">
             Features
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card>
-              <CardContent className="flex flex-col items-center p-6 space-y-2">
-                <GlobeIcon className="w-12 h-12 text-primary" />
-                <h3 className="text-xl font-bold">100% Remote Jobs</h3>
-                <p className="text-center text-gray-500 dark:text-gray-400">
-                  All jobs on our platform are fully remote, giving you the
-                  freedom to work from anywhere.
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="flex flex-col items-center p-6 space-y-2">
-                <CodeIcon className="w-12 h-12 text-primary" />
-                <h3 className="text-xl font-bold">Tech-Focused</h3>
-                <p className="text-center text-gray-500 dark:text-gray-400">
-                  Curated job listings specifically for software engineers and
-                  tech professionals.
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="flex flex-col items-center p-6 space-y-2">
-                <SearchIcon className="w-12 h-12 text-primary" />
-                <h3 className="text-xl font-bold">Smart Job Matching</h3>
-                <p className="text-center text-gray-500 dark:text-gray-400">
-                  Our AI-powered system matches you with jobs that fit your
-                  skills and preferences.
-                </p>
-              </CardContent>
-            </Card>
+          <div className="flex flex-wrap items-center justify-center gap-8">
+            {features.map((feature) => (
+              <Card key={feature.title} className="md:w-[45%]">
+                <CardContent className="flex flex-col items-center p-6 text-center space-y-2">
+                  <feature.icon className="w-12 h-12 text-primary" />
+                  <h3 className="text-xl font-bold">{feature.title}</h3>
+                  <p className="text-center text-gray-500 dark:text-gray-400">
+                    {feature.description}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
 
       {/* How It Works section */}
       <section id="how-it-works" className="w-full py-12 md:py-24 lg:py-32">
-        <div className="container px-4 md:px-6">
+        <div className="px-10 py-4">
           <h2 className="mb-12 text-3xl font-bold tracking-tighter text-center sm:text-5xl">
             How It Works
           </h2>
