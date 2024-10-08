@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { satoshi } from "../fonts/fonts";
+import { ModeToggle } from "./ModeToggle";
 
 const Navbar: React.FC = () => {
   return (
@@ -22,6 +23,7 @@ const Navbar: React.FC = () => {
       <Link href="#" className="hover:underline">
         Sign In
       </Link>
+      <ModeToggle />
     </nav>
   );
 };

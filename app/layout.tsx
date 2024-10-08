@@ -4,6 +4,7 @@ import "@/styles/globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 import { geistSans } from "./fonts/fonts";
 import Navbar from "./components/Navbar";
+import { ThemeProvider } from "@/app/components/theme-provider";
 
 export const metadata: Metadata = {
   title: "Get a Gig!",
@@ -18,10 +19,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.className}`}>
-        <AuthProvider>
-          <Navbar />
-          {children}
-        </AuthProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <AuthProvider>
+            <Navbar />
+            {children}
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
