@@ -28,6 +28,25 @@ export default function Home() {
       icon: Pen,
     },
   ];
+
+  const howItWorks = [
+    {
+      step: "1",
+      title: "Create Your Profile",
+      description:
+        "Sign up and showcase your skills, experience, and preferences.",
+    },
+    {
+      step: "2",
+      title: "Explore Opportunities",
+      description: "Browse through our curated list of remote tech jobs.",
+    },
+    {
+      step: "3",
+      title: "Apply and Connect",
+      description: "Apply to jobs and connect directly with employers.",
+    },
+  ];
   const teamMembers = [
     {
       name: "Abdelrahman Hany",
@@ -76,9 +95,7 @@ export default function Home() {
                 <CardContent className="flex flex-col items-center p-6 text-center space-y-2">
                   <feature.icon className="w-12 h-12 text-primary" />
                   <h3 className="text-xl font-bold">{feature.title}</h3>
-                  <p className="text-center text-gray-500 dark:text-gray-400">
-                    {feature.description}
-                  </p>
+                  <p className="text-center">{feature.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -92,34 +109,21 @@ export default function Home() {
           <h2 className="mb-12 text-3xl font-bold tracking-tighter text-center sm:text-5xl">
             How It Works
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="flex flex-col items-center p-4 border-r border-gray-200 space-y-2 dark:border-gray-700">
-              <div className="flex items-center justify-center w-12 h-12 p-3 rounded-full bg-primary text-primary-foreground">
-                1
-              </div>
-              <h3 className="text-xl font-bold">Create Your Profile</h3>
-              <p className="text-center text-gray-500 dark:text-gray-400">
-                Sign up and showcase your skills, experience, and preferences.
-              </p>
-            </div>
-            <div className="flex flex-col items-center p-4 border-r border-gray-200 space-y-2 dark:border-gray-700">
-              <div className="flex items-center justify-center w-12 h-12 p-3 rounded-full bg-primary text-primary-foreground">
-                2
-              </div>
-              <h3 className="text-xl font-bold">Explore Opportunities</h3>
-              <p className="text-center text-gray-500 dark:text-gray-400">
-                Browse through our curated list of remote tech jobs.
-              </p>
-            </div>
-            <div className="flex flex-col items-center p-4 space-y-2">
-              <div className="flex items-center justify-center w-12 h-12 p-3 rounded-full bg-primary text-primary-foreground">
-                3
-              </div>
-              <h3 className="text-xl font-bold">Apply and Connect</h3>
-              <p className="text-center text-gray-500 dark:text-gray-400">
-                Apply to jobs and connect directly with employers.
-              </p>
-            </div>
+          <div className="grid auto-rows-fr md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {howItWorks.map((step) => (
+              <Card
+                key={step.title}
+                className={`h-full ${step.step === "3" && "md:col-span-2 md:justify-self-center md:w-[50%] lg:col-span-1 lg:w-full"}`}
+              >
+                <CardContent className="flex flex-col items-center justify-between h-full p-6 text-center space-y-2">
+                  <div className="flex items-center justify-center w-12 h-12 p-3 rounded-full bg-primary text-primary-foreground">
+                    {step.step}
+                  </div>
+                  <h3 className="my-2 text-xl font-bold">{step.title}</h3>
+                  <p className="text-center">{step.description}</p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
