@@ -92,7 +92,7 @@ export default function Home() {
       {/* Features */}
       <section
         id="features"
-        className="w-full bg-gray-100 py-12 dark:bg-gray-800 md:py-24 lg:py-32"
+        className="w-full bg-gray-100 py-12 md:py-24 lg:py-32"
       >
         <div className="px-10 py-4">
           <h2
@@ -149,13 +149,10 @@ export default function Home() {
       </section>
 
       {/* Meet the team */}
-      <section
-        id="team"
-        className="w-full bg-gray-100 py-12 dark:bg-gray-800 md:py-24 lg:py-32"
-      >
+      <section id="team" className="w-full bg-gray-100 py-12 md:py-24 lg:py-32">
         <div className="flex flex-col items-center">
           <h2
-            className="mb-12 text-center text-3xl font-bold tracking-tighter sm:text-5xl"
+            className="mb-12 text-center text-3xl font-bold tracking-tighter text-black sm:text-5xl"
             data-aos="fade-up"
           >
             Our Team
