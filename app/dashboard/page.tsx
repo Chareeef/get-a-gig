@@ -26,7 +26,7 @@ const Dashboard = () => {
       {/* Logout Button */}
       <button
         onClick={() => signOut({ callbackUrl: "/auth/signin" })}
-        className="bg-slate-300 hover:bg-slate-400 border-2 border-amber-50 rounded-md"
+        className="rounded-md border-2 border-amber-50 bg-slate-300 hover:bg-slate-400"
       >
         Log Out
       </button>

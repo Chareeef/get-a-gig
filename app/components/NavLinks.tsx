@@ -29,7 +29,7 @@ export default function NavLinks() {
   return (
     <nav>
       {/* Links for large screens */}
-      <div className="items-center hidden text-center md:flex gap-3">
+      <div className="hidden items-center gap-3 text-center md:flex">
         {links.map((link) => (
           <Link
             href={link.href}
@@ -46,7 +46,7 @@ export default function NavLinks() {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" size="icon">
-              <FaBars className="h-[1.2rem] w-[1.2rem]" />
+              <FaBars className="size-[1.2rem]" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
@@ -55,7 +55,7 @@ export default function NavLinks() {
           >
             {links.map((link) => (
               <DropdownMenuItem key={link.name}>
-                <Link href={link.href} className="hover:text-yellow-400 w-full">
+                <Link href={link.href} className="w-full hover:text-yellow-400">
                   {link.name}
                 </Link>
               </DropdownMenuItem>
