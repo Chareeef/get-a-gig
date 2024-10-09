@@ -2,6 +2,9 @@ import React from "react";
 import type { Metadata } from "next";
 import "@/styles/globals.css";
 import { AuthProvider } from "@/context/AuthContext";
+import { geistSans } from "./fonts/fonts";
+import Navbar from "./components/Navbar";
+import { ThemeProvider } from "@/app/components/theme-provider";
 
 export const metadata: Metadata = {
   title: "Get a Gig!",
@@ -15,8 +18,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        <AuthProvider>{children}</AuthProvider>
+      <body
+        className={`${geistSans.className} flex flex-col overflow-x-hidden`}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <AuthProvider>
+            <Navbar />
+            {children}
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

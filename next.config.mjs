@@ -9,6 +9,12 @@ const __dirname = dirname(__filename);
 dotenv.config({ path: `${__dirname}/.env` });
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "avatars.githubusercontent.com" },
+    ], // Add the allowed domain
+  },
+};
 
 export default nextConfig;
