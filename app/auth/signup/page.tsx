@@ -69,7 +69,7 @@ const Register = () => {
   };
 
   return (
-    <main className="flex grow flex-col items-center justify-center bg-gray-100 p-6 dark:bg-gray-800">
+    <main className="flex grow flex-col items-center justify-center border-y-4 border-yellow-500 bg-gray-100 p-6 dark:bg-gray-800">
       <div className={`${satoshi.className} mb-4 text-3xl font-black`}>
         GET
         <br />
