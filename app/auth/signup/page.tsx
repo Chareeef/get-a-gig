@@ -76,7 +76,7 @@ const Register = () => {
         <span className="text-yellow-400">@</span> GIG
       </div>
 
-      <hr className="my-4 w-1/4 border-t border-gray-300" />
+      <hr className="my-4 w-[20vw] border-t border-gray-300" />
 
       <h1 className="mb-4 text-2xl font-bold">Register</h1>
 
@@ -170,7 +170,7 @@ const Register = () => {
         >
           <FaGoogle /> Continue with Google
         </Button>
-        <hr className="my-4 w-2/3 border-t border-gray-300" />
+        <hr className="my-4 w-[20vw] border-t border-gray-300" />
         <p>
           Already have an account?{" "}
           <Link href="/auth/signin" className="text-yellow-500 hover:underline">

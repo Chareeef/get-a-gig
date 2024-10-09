@@ -9,7 +9,7 @@ import Footer from "./components/Footer";
 import { Toaster } from "./components/ui/sonner";
 
 export const metadata: Metadata = {
-  title: "Get a Gig!",
+  title: "Get a Gig",
   description: "Uncover that job made just for you!",
 };
 
