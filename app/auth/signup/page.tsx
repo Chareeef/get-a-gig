@@ -18,6 +18,7 @@ import { signIn } from "next-auth/react";
 import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
 import Link from "next/link";
 import { useState } from "react";
+import { satoshi } from "@/app/fonts/fonts";
 
 // Zod schema for form validation
 const RegisterSchema = z.object({
@@ -69,7 +70,17 @@ const Register = () => {
 
   return (
     <main className="flex grow flex-col items-center justify-center bg-gray-100 p-6 dark:bg-gray-800">
+      <div className={`${satoshi.className} mb-4 text-3xl font-black`}>
+        GET
+        <br />
+        <span className="text-yellow-400">@</span> GIG
+      </div>
+
+      <hr className="my-4 w-1/4 border-t border-gray-300" />
+
       <h1 className="mb-4 text-2xl font-bold">Register</h1>
+
+      {/* Form */}
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
