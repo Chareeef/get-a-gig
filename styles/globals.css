@@ -8,7 +8,6 @@
 	padding: 0;
 }
 
-
 @layer base {
 	:root {
 	  --background: 0 0% 100%;
@@ -74,4 +73,8 @@
   body {
     @apply bg-background text-foreground;
 	}
+}
+
+.flex-center {
+	@apply flex items-center justify-center;
 }

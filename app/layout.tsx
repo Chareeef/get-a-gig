@@ -5,6 +5,8 @@ import { AuthProvider } from "@/context/AuthContext";
 import { geistSans } from "./fonts/fonts";
 import Navbar from "./components/Navbar";
 import { ThemeProvider } from "@/app/components/theme-provider";
+import Footer from "./components/Footer";
+import { Toaster } from "./components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Get a Gig!",
@@ -19,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.className} flex flex-col overflow-x-hidden`}
+        className={`${geistSans.className} flex min-h-dvh flex-col overflow-x-hidden`}
       >
         <ThemeProvider
           attribute="class"
@@ -30,6 +32,8 @@ export default function RootLayout({
           <AuthProvider>
             <Navbar />
             {children}
+            <Footer />
+            <Toaster />
           </AuthProvider>
         </ThemeProvider>
       </body>
