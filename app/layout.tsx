@@ -3,10 +3,10 @@ import type { Metadata } from "next";
 import "@/styles/globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 import { geistSans } from "./fonts/fonts";
-import Navbar from "./components/Navbar";
+import Header from "@/app/components/Header";
 import { ThemeProvider } from "@/app/components/theme-provider";
-import Footer from "./components/Footer";
-import { Toaster } from "./components/ui/sonner";
+import Footer from "@/app/components/Footer";
+import { Toaster } from "@/app/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Get a Gig",
@@ -30,7 +30,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <AuthProvider>
-            <Navbar />
+            <Header />
             {children}
             <Footer />
             <Toaster />

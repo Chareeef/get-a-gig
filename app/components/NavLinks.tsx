@@ -9,8 +9,10 @@ import {
 import { Button } from "@/app/components/ui/button";
 import { FaBars } from "react-icons/fa";
 import { usePathname } from "next/navigation";
+import { useSession, signOut } from "next-auth/react";
 
 export default function NavLinks() {
+  const { status } = useSession();
   const pathname = usePathname();
   const links = [];
 
@@ -22,23 +24,33 @@ export default function NavLinks() {
     );
   }
 
-  links.push(
-    { name: "Sign Up", href: "/auth/signup" },
-    { name: "Sign In", href: "/auth/signin" },
-  );
+  if (status === "authenticated") {
+    links.push({ name: "Dashboard", href: "/dashboard" });
+  } else {
+    links.push(
+      { name: "Sign Up", href: "/auth/signup" },
+      { name: "Sign In", href: "/auth/signin" },
+    );
+  }
   return (
     <nav>
       {/* Links for large screens */}
       <div className="hidden items-center gap-3 text-center md:flex">
         {links.map((link) => (
-          <Link
-            href={link.href}
-            key={link.name}
-            className="hover:text-yellow-400 hover:underline"
-          >
+          <Link href={link.href} key={link.name}>
             {link.name}
           </Link>
         ))}
+
+        {/* Sign Out Button */}
+        {status === "authenticated" && (
+          <button
+            onClick={() => signOut({ callbackUrl: "/auth/signin" })}
+            className="hover:text-yellow-400 hover:underline"
+          >
+            Sign Out
+          </button>
+        )}
       </div>
 
       {/* Dropdown for small screens */}
@@ -60,6 +72,16 @@ export default function NavLinks() {
                 </Link>
               </DropdownMenuItem>
             ))}
+            {status === "authenticated" && (
+              <DropdownMenuItem key="Sign Out">
+                <button
+                  onClick={() => signOut({ callbackUrl: "/auth/signin" })}
+                  className="w-full text-left hover:text-yellow-400"
+                >
+                  Sign Out
+                </button>
+              </DropdownMenuItem>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

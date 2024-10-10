@@ -68,7 +68,7 @@ export default function Home() {
   ];
 
   useEffect(() => {
-    AOS.init({ duration: 1000, delay: 200, once: true });
+    AOS.init({ offset: 0, duration: 1000, delay: 200, once: true });
   }, []);
 
   return (
@@ -84,8 +84,8 @@ export default function Home() {
           Get-a-Gig connects ALX Software Engineering students with exciting
           remote job opportunities in the tech industry.
         </h2>
-        <Button data-aos="zoom-in" size="lg">
-          Get Started
+        <Button data-aos="zoom-in" size="lg" asChild>
+          <Link href="/auth/signup">Get Started</Link>
         </Button>
       </section>
 

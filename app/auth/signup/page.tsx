@@ -24,18 +24,18 @@ import "aos/dist/aos.css";
 import Head from "next/head";
 
 // Zod schema for form validation
-const RegisterSchema = z.object({
+const SignupSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
   email: z.string().email("Please enter a valid email address."),
   password: z.string().min(6, "Password must be at least 6 characters."),
 });
 
-type RegisterFormData = z.infer<typeof RegisterSchema>;
+type SignupFormData = z.infer<typeof SignupSchema>;
 
-export default function Register() {
+export default function Signup() {
   const router = useRouter();
-  const form = useForm<RegisterFormData>({
-    resolver: zodResolver(RegisterSchema),
+  const form = useForm<SignupFormData>({
+    resolver: zodResolver(SignupSchema),
     defaultValues: {
       name: "",
       email: "",
@@ -44,7 +44,7 @@ export default function Register() {
   });
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const onSubmit = async (data: RegisterFormData) => {
+  const onSubmit = async (data: SignupFormData) => {
     try {
       const res = await fetch("/api/auth/register", {
         method: "POST",
@@ -74,7 +74,7 @@ export default function Register() {
   useEffect(() => {
     document.title = "Get a Gig - Sign Up";
     // Initialize AOS
-    AOS.init({ duration: 1000, delay: 200, once: true });
+    AOS.init({ offset: 0, duration: 1000, delay: 200, once: true });
   }, []);
 
   return (
@@ -100,7 +100,7 @@ export default function Register() {
         />
 
         <h1 className="mb-4 text-2xl font-bold" data-aos="fade-up">
-          Register
+          Sign Up
         </h1>
 
         {/* Form */}
@@ -181,12 +181,14 @@ export default function Register() {
               )}
             />
             <Button type="submit" className="w-full" data-aos="zoom-in">
-              Register
+              Sign Up
             </Button>
           </form>
         </Form>
 
-        <div className="my-4 text-xl font-bold">Or</div>
+        <div className="my-4 text-xl font-bold" data-aos="flip-right">
+          Or
+        </div>
 
         <div className="flex flex-col items-center" data-aos="zoom-in">
           <Button

@@ -1,10 +1,9 @@
-import React from "react";
 import { satoshi } from "../fonts/fonts";
 import NavLinks from "./NavLinks";
 import { ModeToggle } from "./ModeToggle";
 import Link from "next/link";
 
-const Navbar: React.FC = () => {
+export default function Header() {
   return (
     <nav className="flex items-center gap-4 px-10 py-5">
       {/* Logo */}
@@ -18,9 +17,9 @@ const Navbar: React.FC = () => {
 
       {/* Links */}
       <NavLinks />
+
+      {/* Dark/Light/System Mode Toggle */}
       <ModeToggle />
     </nav>
   );
-};
-
-export default Navbar;
+}
