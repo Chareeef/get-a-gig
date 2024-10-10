@@ -17,8 +17,11 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { satoshi } from "@/app/fonts/fonts";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import Head from "next/head";
 
 // Zod schema for form validation
 const RegisterSchema = z.object({
@@ -29,7 +32,7 @@ const RegisterSchema = z.object({
 
 type RegisterFormData = z.infer<typeof RegisterSchema>;
 
-const Register = () => {
+export default function Register() {
   const router = useRouter();
   const form = useForm<RegisterFormData>({
     resolver: zodResolver(RegisterSchema),
@@ -68,118 +71,147 @@ const Register = () => {
     signIn("google", { callbackUrl: "/dashboard" });
   };
 
+  useEffect(() => {
+    document.title = "Get a Gig - Sign Up";
+    // Initialize AOS
+    AOS.init({ duration: 1000, delay: 200, once: true });
+  }, []);
+
   return (
-    <main className="flex grow flex-col items-center justify-center border-y-4 border-yellow-500 bg-gray-100 p-6 dark:bg-gray-800">
-      <div className={`${satoshi.className} mb-4 text-3xl font-black`}>
-        GET
-        <br />
-        <span className="text-yellow-400">@</span> GIG
-      </div>
+    <>
+      <Head>
+        <title>{document.title}</title>
+      </Head>
 
-      <hr className="my-4 w-[20vw] border-t border-gray-300" />
-
-      <h1 className="mb-4 text-2xl font-bold">Register</h1>
-
-      {/* Form */}
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="flex w-full max-w-sm flex-col gap-4"
+      <main className="flex grow flex-col items-center justify-center border-y-4 border-yellow-500 bg-gray-100 p-6 dark:bg-gray-800">
+        {/* Logo */}
+        <div
+          className={`${satoshi.className} mb-4 text-3xl font-black`}
+          data-aos="zoom-in"
         >
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Name</FormLabel>
-                <FormControl>
-                  <Input
-                    className="outline outline-1 outline-gray-300"
-                    placeholder="Your name"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage>{form.formState.errors.name?.message}</FormMessage>
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input
-                    className="outline outline-1 outline-gray-300"
-                    placeholder="your-email@example.com"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage>
-                  {form.formState.errors.email?.message}
-                </FormMessage>
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <div className="relative">
+          GET
+          <br />
+          <span className="text-yellow-400">@</span> GIG
+        </div>
+
+        <hr
+          className="my-4 w-[50vw] border-t border-gray-300 md:w-[20vw]"
+          data-aos="fade-right"
+        />
+
+        <h1 className="mb-4 text-2xl font-bold" data-aos="fade-up">
+          Register
+        </h1>
+
+        {/* Form */}
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="flex w-full max-w-sm flex-col gap-4"
+          >
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem data-aos="flip-up">
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
                     <Input
                       className="outline outline-1 outline-gray-300"
-                      type={showPassword ? "text" : "password"}
-                      placeholder="Your password"
+                      placeholder="Your name"
                       {...field}
                     />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute inset-y-0 right-3 flex items-center text-gray-600"
-                    >
-                      {showPassword ? (
-                        <FaEyeSlash className="dark:text-gray-300" />
-                      ) : (
-                        <FaEye className="dark:text-gray-300" />
-                      )}
-                    </button>
-                  </div>
-                </FormControl>
-                <FormMessage>
-                  {form.formState.errors.password?.message}
-                </FormMessage>
-              </FormItem>
-            )}
-          />
-          <Button type="submit" className="w-full">
-            Register
+                  </FormControl>
+                  <FormMessage>
+                    {form.formState.errors.name?.message}
+                  </FormMessage>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem data-aos="flip-up">
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input
+                      className="outline outline-1 outline-gray-300"
+                      placeholder="your-email@example.com"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage>
+                    {form.formState.errors.email?.message}
+                  </FormMessage>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem data-aos="flip-up">
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <div className="relative">
+                      <Input
+                        className="outline outline-1 outline-gray-300"
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Your password"
+                        {...field}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute inset-y-0 right-3 flex items-center text-gray-600"
+                      >
+                        {showPassword ? (
+                          <FaEyeSlash className="dark:text-gray-300" />
+                        ) : (
+                          <FaEye className="dark:text-gray-300" />
+                        )}
+                      </button>
+                    </div>
+                  </FormControl>
+                  <FormMessage>
+                    {form.formState.errors.password?.message}
+                  </FormMessage>
+                </FormItem>
+              )}
+            />
+            <Button type="submit" className="w-full" data-aos="zoom-in">
+              Register
+            </Button>
+          </form>
+        </Form>
+
+        <div className="my-4 text-xl font-bold">Or</div>
+
+        <div className="flex flex-col items-center" data-aos="zoom-in">
+          <Button
+            onClick={handleGoogleSignIn}
+            className="flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600"
+          >
+            <FaGoogle /> Continue with Google
           </Button>
-        </form>
-      </Form>
 
-      <div className="my-4 text-xl font-bold">Or</div>
+          <hr
+            className="my-4 w-[50vw] border-t border-gray-300 md:w-[20vw]"
+            data-aos="fade-left"
+          />
 
-      <div className="flex flex-col items-center">
-        <Button
-          onClick={handleGoogleSignIn}
-          className="flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600"
-        >
-          <FaGoogle /> Continue with Google
-        </Button>
-        <hr className="my-4 w-[20vw] border-t border-gray-300" />
-        <p>
-          Already have an account?{" "}
-          <Link href="/auth/signin" className="text-yellow-500 hover:underline">
-            Sign in
-          </Link>
-        </p>
-      </div>
-    </main>
+          <p className="text-center" data-aos="fade-up">
+            Already have an account?{" "}
+            <Link
+              href="/auth/signin"
+              className="block text-yellow-500 hover:underline md:inline"
+            >
+              Sign in
+            </Link>
+          </p>
+        </div>
+      </main>
+    </>
   );
-};
-
-export default Register;
+}
