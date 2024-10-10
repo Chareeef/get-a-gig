@@ -84,8 +84,8 @@ export default function Home() {
           Get-a-Gig connects ALX Software Engineering students with exciting
           remote job opportunities in the tech industry.
         </h2>
-        <Button data-aos="zoom-in" size="lg">
-          Get Started
+        <Button data-aos="zoom-in" size="lg" asChild>
+          <Link href="/auth/signup">Get Started</Link>
         </Button>
       </section>
 
