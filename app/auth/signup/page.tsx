@@ -1,4 +1,5 @@
 "use client";
+import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -21,7 +22,6 @@ import { useEffect, useState } from "react";
 import { satoshi } from "@/app/fonts/fonts";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import Head from "next/head";
 
 // Zod schema for form validation
 const SignupSchema = z.object({
@@ -33,6 +33,7 @@ const SignupSchema = z.object({
 type SignupFormData = z.infer<typeof SignupSchema>;
 
 export default function Signup() {
+  const { status } = useSession();
   const router = useRouter();
   const form = useForm<SignupFormData>({
     resolver: zodResolver(SignupSchema),
@@ -72,16 +73,19 @@ export default function Signup() {
   };
 
   useEffect(() => {
-    document.title = "Get a Gig - Sign Up";
+    if (status === "authenticated") {
+      router.push("/dashboard"); // Redirect to dashboard if already authenticated
+    }
+
     // Initialize AOS
     AOS.init({ offset: 0, duration: 1000, delay: 200, once: true });
-  }, []);
+  }, [status, router]);
 
   return (
     <>
-      <Head>
-        <title>{document.title}</title>
-      </Head>
+      <head>
+        <title>Get a Gig - Sign Up</title>
+      </head>
 
       <main className="flex grow flex-col items-center justify-center border-y-4 border-yellow-500 bg-gray-100 p-6 dark:bg-gray-800">
         {/* Logo */}
