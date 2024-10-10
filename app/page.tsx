@@ -68,7 +68,7 @@ export default function Home() {
   ];
 
   useEffect(() => {
-    AOS.init({ duration: 1000, delay: 200, once: true });
+    AOS.init({ offset: 0, duration: 1000, delay: 200, once: true });
   }, []);
 
   return (
