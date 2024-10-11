@@ -13,6 +13,7 @@ const nextConfig = {
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "avatars.githubusercontent.com" },
+      { protocol: "https", hostname: "we-work-remotely.imgix.net" },
     ], // Add the allowed domain
   },
 };
