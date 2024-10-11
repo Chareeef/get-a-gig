@@ -2,9 +2,42 @@ import axios from "axios";
 import * as cheerio from "cheerio";
 import { job, jobCategory } from "@/types/jobs";
 
-export async function getJobs(category: jobCategory): Promise<job[]> {
+export async function getAllJobs(): Promise<job[]> {
+  const jobs: job[] = [];
+  const categories: jobCategory[] = [
+    "full-stack-programming",
+    "front-end-programming",
+    "back-end-programming",
+    "devops-sysadmin",
+  ];
+
+  // Get jobs from each category
+  for (const category of categories) {
+    const categoryJobs = await getJobsByCategory(category as jobCategory);
+    categoryJobs.forEach((job) => {
+      // Check if the job is already processed but has another category
+      const jobWithSameUrlIndex = jobs.findIndex((processedJob) => {
+        return (
+          processedJob.url === job.url && processedJob.categories.length > 0
+        );
+      });
+      if (jobWithSameUrlIndex !== -1) {
+        jobs[jobWithSameUrlIndex].categories.push(category as jobCategory);
+        return;
+      } else {
+        // Add the job
+        jobs.push(job);
+      }
+    });
+  }
+
+  // Return the jobs
+  return jobs;
+}
+
+export async function getJobsByCategory(category: jobCategory): Promise<job[]> {
   // Make a GET request to the weworkremotely jobs page
-  const url = `https://weworkremotely.com/categories/remote-${category}-jobs#job-listings`;
+  const url = `https://weworkremotely.com/categories/remote-${category}-jobs`;
   const response = await axios.get(url);
   const html = await response.data;
 
@@ -14,6 +47,7 @@ export async function getJobs(category: jobCategory): Promise<job[]> {
 
   // Extract jobs infos
   const jobsInfo: job[] = jobs.map((job) => {
+    const url = $(job).find("> a").attr("href") || "";
     const title = $(job).find("span.title").text();
     const location = $(job)
       .find(".region")
@@ -24,8 +58,9 @@ export async function getJobs(category: jobCategory): Promise<job[]> {
       .replace("Europe, EMEA", "Europe, Africa, Middle East")
       .replace("EMEA", "Europe, Africa, Middle East");
     const company = $(job).find("span.company:first-child").text();
-    const url = $(job).find("> a").attr("href") || "";
-    const date = $(job).find(".listing-date__date").text();
+    const daysSincePosted = parseInt(
+      $(job).find(".listing-date__date").text().slice(0, -1),
+    );
     // Select the div with the background image and extract the logo URL
     const logoUrl =
       $(job)
@@ -36,11 +71,11 @@ export async function getJobs(category: jobCategory): Promise<job[]> {
 
     return {
       title,
-      category,
+      categories: [category],
       location,
       company,
       url,
-      date,
+      daysSincePosted,
       logoUrl,
       description: "",
       applyUrl: "",
