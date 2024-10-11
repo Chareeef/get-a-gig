@@ -1,5 +1,36 @@
+"use client";
+import { useState } from "react";
+import { Button } from "@/app/components/ui/button";
 import { job } from "@/types/jobs";
+import Image from "next/image";
 
+function CompanyLogo({
+  logoUrl,
+  companyName,
+}: {
+  logoUrl: string;
+  companyName: string;
+}) {
+  const [fallback, setFallback] = useState<boolean>(false);
+  return (
+    <>
+      {fallback ? (
+        <div className="flex-center rounded-lg border-2 border-yellow-500 bg-white p-6">
+          {companyName}
+        </div>
+      ) : (
+        <Image
+          src={logoUrl}
+          className="rounded-lg border-2 border-yellow-500"
+          alt={companyName}
+          onError={() => setFallback(true)}
+          width={120}
+          height={120}
+        />
+      )}
+    </>
+  );
+}
 function JobCard({ job }: { job: job }) {
   const categories = {
     ["full-stack-programming"]: { name: "Full-Stack", color: "bg-red-500" },
@@ -11,23 +42,53 @@ function JobCard({ job }: { job: job }) {
   return (
     <div
       key={job.url}
-      className="w-full break-words rounded-sm border-2 border-yellow-500 bg-gray-200 p-4"
+      className="w-full divide-y-2 divide-gray-300 rounded-sm border-2 border-yellow-500 bg-gray-200 text-center"
     >
-      <h2 className="text-lg font-bold">{job.title}</h2>
-      <p className="text-base">
-        Categories:{" "}
-        {job.categories.map((category, index) => (
+      <div className="flex-center p-3">
+        <CompanyLogo logoUrl={job.logoUrl} companyName={job.company} />
+      </div>
+
+      <div className="grid grid-cols-2 divide-x-2 divide-gray-300 break-all">
+        <div className="flex-center text-lg font-bold">Title</div>
+        <div className="flex-center p-2 text-base font-bold">{job.title}</div>
+      </div>
+
+      <div className="grid grid-cols-2 divide-x-2 divide-gray-300">
+        <div className="flex-center text-lg font-bold">Category</div>
+        <div className="flex-center p-2 text-base font-bold">
           <span
-            key={index}
-            className={`${categories[category as keyof typeof categories].color} mx-1 rounded-md px-2 py-1 text-white`}
+            className={`${categories[job.categories[0]].color} rounded px-2 py-1`}
           >
-            {categories[category as keyof typeof categories].name}
+            {categories[job.categories[0]].name}
           </span>
-        ))}
-      </p>
-      <p className="text-base">Company: {job.company}</p>
-      <p className="text-base">Location: {job.location}</p>
-      <p className="text-base">Posted {job.daysSincePosted} days ago</p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 divide-x-2 divide-gray-300 break-all">
+        <div className="flex-center text-lg font-bold">Company</div>
+        <div className="flex-center p-2 text-base font-medium italic">
+          {job.company}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 divide-x-2 divide-gray-300 break-all">
+        <div className="flex-center text-lg font-bold">Location</div>
+        <div className="flex-center p-2 text-base font-medium italic">
+          {job.location}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 divide-x-2 divide-gray-300">
+        <div className="flex-center text-lg font-bold">Posted</div>
+        <div className="flex-center p-2 text-base font-medium italic">
+          {job.daysSincePosted >= 1 ? job.daysSincePosted : 1} day
+          {job.daysSincePosted > 1 ? "s" : ""} ago
+        </div>
+      </div>
+
+      <div className="flex-center p-3">
+        <Button>View Details</Button>
+      </div>
     </div>
   );
 }
