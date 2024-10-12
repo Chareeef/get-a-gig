@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Linkedin, Mail } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -10,11 +10,29 @@ import {
 import { signOut, useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { Button } from "./ui/button";
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
 
 export default function Footer() {
   const { status } = useSession();
   const pathname = usePathname();
   const links = [];
+
+  const teamMembers = [
+    {
+      name: "Abdelrahman Hany",
+      bio: "Abdelrahman is a former design architect who transitioned into software engineering, applying his creativity and problem-solving skills to the tech industry. With a background in architecture, he brings a unique perspective to building innovative digital solutions.",
+      githubURL: "https://github.com/AbduHany",
+      linkedinURL: "https://linkedin.com/in/abduhany",
+      email: "mailto:abdu.hany@gmail.com",
+    },
+    {
+      name: "Youssef Charif Hamidi",
+      bio: "Youssef is a passionate software engineer, committed to building technology that empowers people and creates opportunities for everyone. Inspired by his personal journey, he believes in using innovation to make a positive impact on lives.",
+      githubURL: "https://github.com/Chareeef",
+      linkedinURL: "https://linkedin.com/in/youssef-charif-hamidi",
+      email: "mailto:youssef.charif.h@gmail.com",
+    },
+  ];
 
   if (pathname === "/") {
     links.push(
@@ -62,40 +80,54 @@ export default function Footer() {
               )}
             </nav>
           </div>
-          <Card>
-            <CardHeader>
-              <CardTitle>Abdelrahman Hany</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="mb-4 text-sm text-muted-foreground">
-                Co-founder of GET@GIG. Passionate about connecting talented
-                individuals with exciting opportunities.
-              </p>
-              <div className="flex space-x-4">
-                <Button variant="outline" size="icon">
-                  <Mail className="size-4" />
-                  <span className="sr-only">Email Abdelrahman</span>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle>Youssef Charif</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="mb-4 text-sm text-muted-foreground">
-                Co-founder of GET@GIG. Dedicated to revolutionizing the job
-                search experience for candidates.
-              </p>
-              <div className="flex space-x-4">
-                <Button variant="outline" size="icon">
-                  <Mail className="size-4" />
-                  <span className="sr-only">Email Youssef</span>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+          {teamMembers.map((member) => (
+            <Card key={member.name}>
+              <CardHeader>
+                <CardTitle>{member.name}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="mb-4 text-sm text-muted-foreground">
+                  {member.bio}
+                </p>
+                <div className="flex space-x-4">
+                  <Link
+                    href={member.email}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button variant="outline" size="icon">
+                      <Mail className="size-4" />
+                      <span className="sr-only">Email {member.name}</span>
+                    </Button>
+                  </Link>
+                  <Link
+                    href={member.linkedinURL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button variant="outline" size="icon">
+                      <Linkedin className="size-4" />
+                      <span className="sr-only">
+                        {member.name}&apos;s LinkedIn
+                      </span>
+                    </Button>
+                  </Link>
+                  <Link
+                    href={member.githubURL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button variant="outline" size="icon">
+                      <GitHubLogoIcon className="size-4" />
+                      <span className="sr-only">
+                        {member.name}&apos;s GitHub
+                      </span>
+                    </Button>
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
         <div className="mt-8 border-t border-gray-200 pt-8 text-center text-sm text-muted-foreground">
           &copy; {new Date().getFullYear()} GET@GIG. All rights reserved.
