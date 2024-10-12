@@ -37,7 +37,10 @@ export default function Footer() {
   ];
 
   if (status === "authenticated") {
-    links.push({ name: "Dashboard", href: "/dashboard" });
+    links.push(
+      { name: "Dashboard", href: "/dashboard" },
+      { name: "Profile", href: "/profile" },
+    );
   } else {
     links.push(
       { name: "Sign Up", href: "/auth/signup" },
@@ -46,7 +49,7 @@ export default function Footer() {
   }
 
   return (
-    <footer className="border-t border-gray-200 px-4 py-12 md:px-6">
+    <footer className="px-4 py-12 md:px-6">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div className="space-y-4">
