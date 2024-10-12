@@ -4,7 +4,7 @@ export type jobCategory =
   | "back-end-programming"
   | "devops-sysadmin";
 
-export type job = {
+export interface Job {
   title: string;
   categories: jobCategory[];
   location: string;
@@ -14,4 +14,4 @@ export type job = {
   logoUrl: string;
   description: string;
   applyUrl: string;
-};
+}

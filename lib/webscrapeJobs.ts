@@ -1,9 +1,9 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
-import { job, jobCategory } from "@/types/jobs";
+import { Job, jobCategory } from "@/types/jobs";
 
-export async function getAllJobs(): Promise<job[]> {
-  const jobs: job[] = [];
+export async function getAllJobs(): Promise<Job[]> {
+  const jobs: Job[] = [];
   const categories: jobCategory[] = [
     "full-stack-programming",
     "front-end-programming",
@@ -35,7 +35,7 @@ export async function getAllJobs(): Promise<job[]> {
   return jobs;
 }
 
-export async function getJobsByCategory(category: jobCategory): Promise<job[]> {
+export async function getJobsByCategory(category: jobCategory): Promise<Job[]> {
   // Make a GET request to the weworkremotely jobs page
   const url = `https://weworkremotely.com/categories/remote-${category}-jobs`;
   const response = await axios.get(url);
@@ -46,7 +46,7 @@ export async function getJobsByCategory(category: jobCategory): Promise<job[]> {
   const jobs = $("li.feature").toArray();
 
   // Extract jobs infos
-  const jobsInfo: job[] = jobs.map((job) => {
+  const jobsInfo: Job[] = jobs.map((job) => {
     const url = $(job).find("> a").attr("href") || "";
     const title = $(job).find("span.title").text();
     const location = $(job)
@@ -86,7 +86,7 @@ export async function getJobsByCategory(category: jobCategory): Promise<job[]> {
   return jobsInfo;
 }
 
-export async function getJobDetails(job: job): Promise<job> {
+export async function getJobDetails(job: Job): Promise<Job> {
   // Make a GET request to the weworkremotely job's page
   const response = await axios.get(`https://weworkremotely.com${job.url}`);
   const html = await response.data;

@@ -9,12 +9,12 @@ import {
   SelectValue,
 } from "@/app/components/ui/select";
 import { useState } from "react";
-import { job, jobCategory } from "@/types/jobs";
+import { Job, jobCategory } from "@/types/jobs";
 import { Dispatch, SetStateAction } from "react";
 
 interface FilterProps {
-  jobs: job[];
-  setFilteredJobs: Dispatch<SetStateAction<job[]>>;
+  jobs: Job[];
+  setFilteredJobs: Dispatch<SetStateAction<Job[]>>;
   setLoadingJobs: Dispatch<SetStateAction<boolean>>;
 }
 
