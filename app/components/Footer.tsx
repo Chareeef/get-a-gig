@@ -8,13 +8,11 @@ import {
   CardTitle,
 } from "@/app/components/ui/card";
 import { signOut, useSession } from "next-auth/react";
-import { usePathname } from "next/navigation";
 import { Button } from "./ui/button";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 
 export default function Footer() {
   const { status } = useSession();
-  const pathname = usePathname();
   const links = [
     { name: "Features", href: "/#features" },
     { name: "How It Works", href: "/#how-it-works" },
