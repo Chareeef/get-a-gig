@@ -15,7 +15,11 @@ import { GitHubLogoIcon } from "@radix-ui/react-icons";
 export default function Footer() {
   const { status } = useSession();
   const pathname = usePathname();
-  const links = [];
+  const links = [
+    { name: "Features", href: "/#features" },
+    { name: "How It Works", href: "/#how-it-works" },
+    { name: "Our Team", href: "/#team" },
+  ];
 
   const teamMembers = [
     {
@@ -33,14 +37,6 @@ export default function Footer() {
       email: "mailto:youssef.charif.h@gmail.com",
     },
   ];
-
-  if (pathname === "/") {
-    links.push(
-      { name: "Features", href: "#features" },
-      { name: "How It Works", href: "#how-it-works" },
-      { name: "Our Team", href: "#team" },
-    );
-  }
 
   if (status === "authenticated") {
     links.push({ name: "Dashboard", href: "/dashboard" });
