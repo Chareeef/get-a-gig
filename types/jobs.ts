@@ -1,17 +1,17 @@
 export type jobCategory =
-  | "full-stack"
-  | "front-end"
-  | "back-end"
+  | "full-stack-programming"
+  | "front-end-programming"
+  | "back-end-programming"
   | "devops-sysadmin";
 
-export type job = {
+export interface Job {
   title: string;
-  category: jobCategory;
+  categories: jobCategory[];
   location: string;
   company: string;
   url: string;
-  date: string;
+  daysSincePosted: number;
   logoUrl: string;
   description: string;
   applyUrl: string;
-};
+}

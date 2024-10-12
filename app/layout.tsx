@@ -7,6 +7,7 @@ import Header from "@/app/components/Header";
 import { ThemeProvider } from "@/app/components/theme-provider";
 import Footer from "@/app/components/Footer";
 import { Toaster } from "@/app/components/ui/sonner";
+import { JobDetailsProvider } from "@/context/JobDetails";
 
 export const metadata: Metadata = {
   title: "Get a Gig",
@@ -30,10 +31,12 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <AuthProvider>
-            <Header />
-            {children}
-            <Footer />
-            <Toaster />
+            <JobDetailsProvider>
+              <Header />
+              {children}
+              <Footer />
+              <Toaster />
+            </JobDetailsProvider>
           </AuthProvider>
         </ThemeProvider>
       </body>

@@ -37,7 +37,11 @@ export default function NavLinks() {
       {/* Links for large screens */}
       <div className="hidden items-center gap-3 text-center md:flex">
         {links.map((link) => (
-          <Link href={link.href} key={link.name}>
+          <Link
+            href={link.href}
+            key={link.name}
+            className="hover:text-yellow-400 hover:underline"
+          >
             {link.name}
           </Link>
         ))}
