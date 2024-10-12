@@ -52,35 +52,29 @@ export default function Dashboard() {
   }
 
   return (
-    <>
-      <head>
-        <title>Get A Gig - Dashboard</title>
-      </head>
+    <main className="flex grow flex-col items-center gap-y-4 bg-gray-100 p-4 dark:bg-slate-500">
+      {/* Filters */}
+      <JobsFilters
+        jobs={jobs}
+        setFilteredJobs={setFilteredJobs}
+        setLoadingJobs={setLoadingJobs}
+      />
 
-      <main className="flex grow flex-col items-center gap-y-4 bg-gray-100 p-4 dark:bg-slate-500">
-        {/* Filters */}
-        <JobsFilters
-          jobs={jobs}
-          setFilteredJobs={setFilteredJobs}
-          setLoadingJobs={setLoadingJobs}
-        />
+      {/* Jobs List */}
+      <div className="w-full">
+        {loadingJobs ? (
+          <div className="flex-center grow">
+            <LoadingSpinner />
+          </div>
+        ) : filteredJobs.length === 0 ? (
+          <div className="flex-center grow">No Jobs Found</div>
+        ) : (
+          <JobsList jobs={filteredJobs} />
+        )}
+      </div>
 
-        {/* Jobs List */}
-        <div className="w-full">
-          {loadingJobs ? (
-            <div className="flex-center grow">
-              <LoadingSpinner />
-            </div>
-          ) : filteredJobs.length === 0 ? (
-            <div className="flex-center grow">No Jobs Found</div>
-          ) : (
-            <JobsList jobs={filteredJobs} />
-          )}
-        </div>
-
-        {/* Job Details */}
-        <JobView />
-      </main>
-    </>
+      {/* Job Details */}
+      <JobView />
+    </main>
   );
 }
