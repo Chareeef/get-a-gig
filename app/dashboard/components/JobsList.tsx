@@ -21,7 +21,7 @@ function JobCard({ job }: { job: Job }) {
   return (
     <div
       key={job.url}
-      className="w-full divide-y-2 divide-gray-300 rounded-sm border-2 border-yellow-500 bg-gray-200 text-center"
+      className="w-full divide-y-2 divide-gray-300 rounded-sm border-2 border-yellow-500 bg-gray-200 text-center dark:bg-gray-800 dark:text-white"
     >
       <div className="flex-center p-3">
         <CompanyLogo logoUrl={job.logoUrl} companyName={job.company} />

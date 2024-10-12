@@ -42,7 +42,7 @@ export default function JobView() {
 
   return (
     <div
-      className={`${isDetailsOpen ? "visible" : "invisible"} flex-center fixed inset-0 h-dvh w-dvw bg-black/50 p-8 dark:bg-gray-900`}
+      className={`${isDetailsOpen ? "visible" : "invisible"} flex-center fixed inset-0 h-dvh w-dvw bg-black/50 p-8`}
     >
       {/*  Modal */}
       <div className="relative flex max-h-[80dvh] w-full flex-col justify-evenly gap-4 overflow-y-auto rounded-lg bg-white px-2 py-4 text-center dark:bg-gray-800">
@@ -51,7 +51,7 @@ export default function JobView() {
           <CompanyLogo logoUrl={job.logoUrl} companyName={job.company} />
         </div>
         {/* Job General Infos */}
-        <div className="grid grid-cols-2 border-2 border-gray-900">
+        <div className="grid grid-cols-2 rounded-sm border-2 border-gray-300">
           <div className="flex-center border-b-2 border-r-2 border-gray-300 p-2 text-lg font-bold">
             Title
           </div>
