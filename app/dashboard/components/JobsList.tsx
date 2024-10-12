@@ -1,43 +1,22 @@
 "use client";
-import { useState } from "react";
+import { useJobDetails } from "@/context/JobDetails";
 import { Button } from "@/app/components/ui/button";
-import { job } from "@/types/jobs";
-import Image from "next/image";
+import { Job } from "@/types/jobs";
+import CompanyLogo from "./CompanyLogo";
 
-function CompanyLogo({
-  logoUrl,
-  companyName,
-}: {
-  logoUrl: string;
-  companyName: string;
-}) {
-  const [fallback, setFallback] = useState<boolean>(false);
-  return (
-    <>
-      {fallback ? (
-        <div className="flex-center rounded-lg border-2 border-yellow-500 bg-white p-6">
-          {companyName}
-        </div>
-      ) : (
-        <Image
-          src={logoUrl}
-          className="rounded-lg border-2 border-yellow-500"
-          alt={companyName}
-          onError={() => setFallback(true)}
-          width={120}
-          height={120}
-        />
-      )}
-    </>
-  );
-}
-function JobCard({ job }: { job: job }) {
+function JobCard({ job }: { job: Job }) {
+  const { setIsDetailsOpen, setSelectedJob } = useJobDetails();
   const categories = {
     ["full-stack-programming"]: { name: "Full-Stack", color: "bg-red-500" },
     ["front-end-programming"]: { name: "Frontend", color: "bg-blue-500" },
     ["back-end-programming"]: { name: "Backend", color: "bg-green-500" },
     ["devops-sysadmin"]: { name: "DevOps", color: "bg-yellow-500" },
   };
+
+  function openJobView() {
+    setIsDetailsOpen(true);
+    setSelectedJob(job);
+  }
 
   return (
     <div
@@ -87,13 +66,13 @@ function JobCard({ job }: { job: job }) {
       </div>
 
       <div className="flex-center p-3">
-        <Button>View Details</Button>
+        <Button onClick={openJobView}>View Details</Button>
       </div>
     </div>
   );
 }
 
-export default function JobsList({ jobs }: { jobs: job[] }) {
+export default function JobsList({ jobs }: { jobs: Job[] }) {
   return (
     <>
       <h1 className="mb-4 text-2xl font-bold">{jobs.length} Jobs Found</h1>

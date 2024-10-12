@@ -4,16 +4,17 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import LoadingSpinner from "@/app/components/loadingSpinner";
 import { getAllJobs } from "@/lib/webscrapeJobs";
-import { job } from "@/types/jobs";
+import { Job } from "@/types/jobs";
 import { toast } from "sonner";
 import JobsFilters from "@/app/dashboard/components/JobsFilters";
 import JobsList from "@/app/dashboard/components/JobsList";
+import JobView from "./components/JobView";
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [jobs, setJobs] = useState<job[]>([]);
-  const [filteredJobs, setFilteredJobs] = useState<job[]>([]);
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const [filteredJobs, setFilteredJobs] = useState<Job[]>([]);
   const [loadingJobs, setLoadingJobs] = useState<boolean>(true);
 
   useEffect(() => {
@@ -76,6 +77,9 @@ export default function Dashboard() {
             <JobsList jobs={filteredJobs} />
           )}
         </div>
+
+        {/* Job Details */}
+        <JobView />
       </main>
     </>
   );
