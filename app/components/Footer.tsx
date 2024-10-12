@@ -75,11 +75,11 @@ export default function Footer() {
             </nav>
           </div>
           {teamMembers.map((member) => (
-            <Card key={member.name}>
+            <Card key={member.name} className="flex flex-col">
               <CardHeader>
                 <CardTitle>{member.name}</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="flex grow flex-col justify-between">
                 <p className="mb-4 text-sm text-muted-foreground">
                   {member.bio}
                 </p>
