@@ -82,142 +82,134 @@ export default function Signup() {
   }, [status, router]);
 
   return (
-    <>
-      <head>
-        <title>Get a Gig - Sign Up</title>
-      </head>
+    <main className="flex grow flex-col items-center justify-center border-y-4 border-yellow-500 bg-gray-100 p-6 dark:bg-gray-800">
+      {/* Logo */}
+      <div
+        className={`${satoshi.className} mb-4 text-3xl font-black`}
+        data-aos="zoom-in"
+      >
+        GET
+        <br />
+        <span className="text-yellow-400">@</span> GIG
+      </div>
 
-      <main className="flex grow flex-col items-center justify-center border-y-4 border-yellow-500 bg-gray-100 p-6 dark:bg-gray-800">
-        {/* Logo */}
-        <div
-          className={`${satoshi.className} mb-4 text-3xl font-black`}
-          data-aos="zoom-in"
+      <hr
+        className="my-4 w-[50vw] border-t border-gray-300 md:w-[20vw]"
+        data-aos="fade-right"
+      />
+
+      <h1 className="mb-4 text-2xl font-bold" data-aos="fade-up">
+        Sign Up
+      </h1>
+
+      {/* Form */}
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex w-full max-w-sm flex-col gap-4"
         >
-          GET
-          <br />
-          <span className="text-yellow-400">@</span> GIG
-        </div>
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem data-aos="flip-up">
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <Input
+                    className="outline outline-1 outline-gray-300"
+                    placeholder="Your name"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage>{form.formState.errors.name?.message}</FormMessage>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem data-aos="flip-up">
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input
+                    className="outline outline-1 outline-gray-300"
+                    placeholder="your-email@example.com"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage>
+                  {form.formState.errors.email?.message}
+                </FormMessage>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem data-aos="flip-up">
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <div className="relative">
+                    <Input
+                      className="outline outline-1 outline-gray-300"
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Your password"
+                      {...field}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute inset-y-0 right-3 flex items-center text-gray-600"
+                    >
+                      {showPassword ? (
+                        <FaEyeSlash className="dark:text-gray-300" />
+                      ) : (
+                        <FaEye className="dark:text-gray-300" />
+                      )}
+                    </button>
+                  </div>
+                </FormControl>
+                <FormMessage>
+                  {form.formState.errors.password?.message}
+                </FormMessage>
+              </FormItem>
+            )}
+          />
+          <Button type="submit" className="w-full" data-aos="zoom-in">
+            Sign Up
+          </Button>
+        </form>
+      </Form>
+
+      <div className="my-4 text-xl font-bold" data-aos="flip-right">
+        Or
+      </div>
+
+      <div className="flex flex-col items-center" data-aos="zoom-in">
+        <Button
+          onClick={handleGoogleSignIn}
+          className="flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600"
+        >
+          <FaGoogle /> Continue with Google
+        </Button>
 
         <hr
           className="my-4 w-[50vw] border-t border-gray-300 md:w-[20vw]"
-          data-aos="fade-right"
+          data-aos="fade-left"
         />
 
-        <h1 className="mb-4 text-2xl font-bold" data-aos="fade-up">
-          Sign Up
-        </h1>
-
-        {/* Form */}
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="flex w-full max-w-sm flex-col gap-4"
+        <p className="text-center" data-aos="fade-up">
+          Already have an account?{" "}
+          <Link
+            href="/auth/signin"
+            className="block text-yellow-500 hover:underline md:inline"
           >
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem data-aos="flip-up">
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <Input
-                      className="outline outline-1 outline-gray-300"
-                      placeholder="Your name"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage>
-                    {form.formState.errors.name?.message}
-                  </FormMessage>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem data-aos="flip-up">
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      className="outline outline-1 outline-gray-300"
-                      placeholder="your-email@example.com"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage>
-                    {form.formState.errors.email?.message}
-                  </FormMessage>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem data-aos="flip-up">
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <div className="relative">
-                      <Input
-                        className="outline outline-1 outline-gray-300"
-                        type={showPassword ? "text" : "password"}
-                        placeholder="Your password"
-                        {...field}
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute inset-y-0 right-3 flex items-center text-gray-600"
-                      >
-                        {showPassword ? (
-                          <FaEyeSlash className="dark:text-gray-300" />
-                        ) : (
-                          <FaEye className="dark:text-gray-300" />
-                        )}
-                      </button>
-                    </div>
-                  </FormControl>
-                  <FormMessage>
-                    {form.formState.errors.password?.message}
-                  </FormMessage>
-                </FormItem>
-              )}
-            />
-            <Button type="submit" className="w-full" data-aos="zoom-in">
-              Sign Up
-            </Button>
-          </form>
-        </Form>
-
-        <div className="my-4 text-xl font-bold" data-aos="flip-right">
-          Or
-        </div>
-
-        <div className="flex flex-col items-center" data-aos="zoom-in">
-          <Button
-            onClick={handleGoogleSignIn}
-            className="flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600"
-          >
-            <FaGoogle /> Continue with Google
-          </Button>
-
-          <hr
-            className="my-4 w-[50vw] border-t border-gray-300 md:w-[20vw]"
-            data-aos="fade-left"
-          />
-
-          <p className="text-center" data-aos="fade-up">
-            Already have an account?{" "}
-            <Link
-              href="/auth/signin"
-              className="block text-yellow-500 hover:underline md:inline"
-            >
-              Sign in
-            </Link>
-          </p>
-        </div>
-      </main>
-    </>
+            Sign in
+          </Link>
+        </p>
+      </div>
+    </main>
   );
 }
