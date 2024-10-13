@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import LoadingSpinner from "@/app/components/loadingSpinner";
 import { Button } from "@/app/components/ui/button";
 import ReactMarkdown from "react-markdown";
+import { FaCopy } from "react-icons/fa";
 
 // Define the props for the component
 interface CoverLetterProps {
@@ -21,30 +22,6 @@ export default function CoverLetter({
   const [coverLetter, setCoverLetter] = useState<string | null>(null);
   const [userBio, setUserBio] = useState<string | null>(null);
 
-  // Fetch user bio
-  async function fetchUserBio() {
-    if (!user) {
-      return;
-    }
-    try {
-      const response = await fetch("/api/get_user", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id: user.id }),
-      });
-
-      const { bio } = await response.json();
-      if (bio) {
-        setUserBio(bio);
-      }
-    } catch (err) {
-      console.error(err);
-      toast.error("Failed to fetch user data.");
-    }
-  }
-
   // Reset cover letter on job title or job description change
   useEffect(() => {
     setCoverLetter(null);
@@ -52,8 +29,32 @@ export default function CoverLetter({
 
   // Fetch user bio on mount
   useEffect(() => {
+    // Fetch user bio
+    async function fetchUserBio() {
+      if (!user) {
+        return;
+      }
+      try {
+        const response = await fetch("/api/get_user", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id: user.id }),
+        });
+
+        const { bio } = await response.json();
+        if (bio) {
+          setUserBio(bio);
+        }
+      } catch (err) {
+        console.error(err);
+        toast.error("Failed to fetch user data.");
+      }
+    }
+
     fetchUserBio();
-  }, [user, userBio]);
+  }, [user]);
 
   if (!user) {
     return null;
@@ -109,6 +110,13 @@ export default function CoverLetter({
     }
   };
 
+  const handleCopy = () => {
+    if (coverLetter) {
+      navigator.clipboard.writeText(coverLetter);
+      toast.success("Cover letter copied to clipboard.");
+    }
+  };
+
   return (
     <div className="relative mb-2 flex min-h-12 w-full flex-col justify-around">
       <h2 className="mb-2 text-xl font-bold">Cover Letter</h2>
@@ -118,12 +126,21 @@ export default function CoverLetter({
         ) : (
           <>
             {coverLetter ? (
-              <ReactMarkdown className="text-left indent-2 first-letter:ml-2">
-                {coverLetter}
-              </ReactMarkdown>
+              <div className="relative pt-4">
+                <button
+                  className="absolute right-1 top-1 text-sm text-gray-500 hover:text-gray-900"
+                  onClick={handleCopy}
+                >
+                  <FaCopy />
+                </button>
+                <ReactMarkdown className="text-left indent-2 first-letter:ml-2">
+                  {coverLetter}
+                </ReactMarkdown>
+              </div>
             ) : (
-              <div className="flex-center text-center">
-                No cover letter generated yet.
+              <div className="flex-center text-center text-gray-400">
+                Based on your bio, we will generate a tailored cover letter for
+                your next gig!
               </div>
             )}
           </>
