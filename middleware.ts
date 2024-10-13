@@ -7,5 +7,11 @@ export default withAuth({
 });
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/profile/:path*"],
+  matcher: [
+    "/dashboard/:path*",
+    "/profile/:path*",
+    "/api/get_user/:path*",
+    "/api/update_user/:path*",
+    "/api/generate_cover_letter/:path*",
+  ],
 };

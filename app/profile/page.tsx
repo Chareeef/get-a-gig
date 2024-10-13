@@ -203,8 +203,8 @@ export default function Dashboard() {
                   />
                 </FormControl>
                 <FormDescription>
-                  We will use your bio to generate your tailored cover letters
-                  for you.
+                  We will use your bio to generate tailored cover letters for
+                  you.
                 </FormDescription>
                 <FormMessage>{form.formState.errors.bio?.message}</FormMessage>
               </FormItem>

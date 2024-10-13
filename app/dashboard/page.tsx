@@ -45,7 +45,7 @@ export default function Dashboard() {
   if (status === "loading") {
     // Show a loading indicator
     return (
-      <div className="flex-center grow bg-gray-100 dark:bg-slate-500">
+      <div className="flex-center h-[60dvh] grow bg-gray-100 dark:bg-slate-500">
         <LoadingSpinner />
       </div>
     );

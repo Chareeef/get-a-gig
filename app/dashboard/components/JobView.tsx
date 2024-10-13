@@ -7,6 +7,7 @@ import { Button } from "@/app/components/ui/button";
 import Link from "next/link";
 import LoadingSpinner from "@/app/components/loadingSpinner";
 import "@/styles/jobDescription.css";
+import CoverLetter from "./CoverLetter";
 
 export default function JobView() {
   const {
@@ -82,7 +83,7 @@ export default function JobView() {
           </div>
         </div>
         {description && applyUrl ? (
-          <>
+          <div className="flex flex-col space-y-2">
             {/* Job Description */}
             <div className="space-y-2 text-left">
               <p className="p-2 text-lg font-bold">Description:</p>
@@ -92,8 +93,14 @@ export default function JobView() {
               ></div>
             </div>
 
-            <div className="mx-auto grid w-full grid-cols-2 gap-2 md:w-1/2">
-              {/* Apply Button */}
+            {/* Generate Cover Letter */}
+            <CoverLetter
+              jobTitle={job.title}
+              jobDescription={job.description}
+            />
+
+            {/* Apply & Close Button */}
+            <div className="mt-4 grid w-full grid-cols-2 gap-2 self-center md:w-1/2">
               <Button
                 className="transition ease-in hover:-translate-y-1"
                 asChild
@@ -112,7 +119,7 @@ export default function JobView() {
                 Close
               </Button>
             </div>
-          </>
+          </div>
         ) : (
           <LoadingSpinner />
         )}
