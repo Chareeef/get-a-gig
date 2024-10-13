@@ -25,7 +25,10 @@ export default function NavLinks() {
   }
 
   if (status === "authenticated") {
-    links.push({ name: "Dashboard", href: "/dashboard" });
+    links.push(
+      { name: "Dashboard", href: "/dashboard" },
+      { name: "Profile", href: "/profile" },
+    );
   } else {
     links.push(
       { name: "Sign Up", href: "/auth/signup" },
