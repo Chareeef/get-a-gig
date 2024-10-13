@@ -1,7 +1,6 @@
 "use client";
-
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,6 +12,7 @@ import {
   FormLabel,
   FormControl,
   FormMessage,
+  FormDescription,
 } from "../components/ui/form";
 import { Input } from "../components/ui/input";
 import { Button } from "@/app/components/ui/button";
@@ -43,11 +43,14 @@ export default function Dashboard() {
   const form = useForm<UpdateUserFormData>({
     resolver: zodResolver(UpdateUserSchema),
     defaultValues: {
-      name,
-      email,
-      bio,
+      name: name || "",
+      email: email || "",
+      bio: bio || "",
     },
   });
+
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const watchBio = form.watch("bio");
 
   useEffect(() => {
     if (status !== "authenticated" || !user) {
@@ -76,16 +79,30 @@ export default function Dashboard() {
         if (!password) {
           setIsGoogleAuthAccount(true);
         }
+
+        form.reset({
+          name: name || "",
+          email: email || "",
+          bio: bio || "",
+        });
       } catch (error) {
         console.error(error);
+        toast.error("An error occurred while fetching user data.");
       }
     })();
-  }, [user, status, router]);
+  }, [user, status, router, form, name, email, bio]);
 
-  const onSubmit = async (data: UpdateUserFormData) => {
+  useEffect(() => {
+    if (textareaRef.current) {
+      //textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, [watchBio]);
+
+  async function handleUpdateUser(data: UpdateUserFormData) {
     try {
       const res = await fetch("/api/update_user", {
-        method: "POST",
+        method: "PUT",
         body: JSON.stringify({ ...data, id: user?.id }),
         headers: {
           "Content-Type": "application/json",
@@ -105,7 +122,7 @@ export default function Dashboard() {
       console.error(error);
       toast.error("An error occurred while updating the profile.");
     }
-  };
+  }
 
   if (status === "loading") {
     return (
@@ -123,13 +140,15 @@ export default function Dashboard() {
 
   return (
     <main className="flex min-h-[60dvh] grow flex-col items-center justify-around gap-4 bg-gray-100 p-4 dark:bg-slate-500">
+      {/* Profile Image */}
       <ProfileImage imageURL={image} userName={name} />
+
       <h1 className="text-3xl font-bold">Profile</h1>
 
       {/* Form */}
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(onSubmit)}
+          onSubmit={form.handleSubmit(handleUpdateUser)}
           className="flex w-full flex-col gap-4 md:w-1/2"
         >
           <FormField
@@ -177,11 +196,16 @@ export default function Dashboard() {
                 <FormLabel>Bio</FormLabel>
                 <FormControl>
                   <Textarea
-                    className="outline outline-1 outline-gray-300"
-                    placeholder="A short bio"
+                    className="h-auto resize-none overflow-hidden outline outline-1 outline-gray-300"
+                    placeholder="Your unique bio"
                     {...field}
+                    ref={textareaRef}
                   />
                 </FormControl>
+                <FormDescription>
+                  We will use your bio to generate your tailored cover letters
+                  for you.
+                </FormDescription>
                 <FormMessage>{form.formState.errors.bio?.message}</FormMessage>
               </FormItem>
             )}

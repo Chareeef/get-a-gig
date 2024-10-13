@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   // Extract the user id from the request
   const { id } = await request.json();
 
