@@ -60,56 +60,6 @@ function JobCard({ job }: { job: Job }) {
         </CardFooter>
       </Card>
     </div>
-    // <div
-    //   key={job.url}
-    //   className="w-full divide-y-2 divide-gray-300 rounded-sm border-2 border-yellow-500 bg-gray-200 text-center dark:bg-gray-800 dark:text-white"
-    // >
-    //   <div className="flex-center p-3">
-    //     <CompanyLogo logoUrl={job.logoUrl} companyName={job.company} />
-    //   </div>
-
-    //   <div className="grid grid-cols-2 divide-x-2 divide-gray-300 break-all">
-    //     <div className="flex-center text-lg font-bold">Title</div>
-    //     <div className="flex-center p-2 text-base font-bold">{job.title}</div>
-    //   </div>
-
-    //   <div className="grid grid-cols-2 divide-x-2 divide-gray-300">
-    //     <div className="flex-center text-lg font-bold">Category</div>
-    //     <div className="flex-center p-2 text-base font-bold">
-    //       <span
-    //         className={`${categories[job.categories[0]].color} rounded px-2 py-1`}
-    //       >
-    //         {categories[job.categories[0]].name}
-    //       </span>
-    //     </div>
-    //   </div>
-
-    //   <div className="grid grid-cols-2 divide-x-2 divide-gray-300 break-all">
-    //     <div className="flex-center text-lg font-bold">Company</div>
-    //     <div className="flex-center p-2 text-base font-medium italic">
-    //       {job.company}
-    //     </div>
-    //   </div>
-
-    //   <div className="grid grid-cols-2 divide-x-2 divide-gray-300 break-all">
-    //     <div className="flex-center text-lg font-bold">Location</div>
-    //     <div className="flex-center p-2 text-base font-medium italic">
-    //       {job.location}
-    //     </div>
-    //   </div>
-
-    //   <div className="grid grid-cols-2 divide-x-2 divide-gray-300">
-    //     <div className="flex-center text-lg font-bold">Posted</div>
-    //     <div className="flex-center p-2 text-base font-medium italic">
-    //       {job.daysSincePosted >= 1 ? job.daysSincePosted : 1} day
-    //       {job.daysSincePosted > 1 ? "s" : ""} ago
-    //     </div>
-    //   </div>
-
-    //   <div className="flex-center p-3">
-    //     <Button onClick={openJobView}>View Details</Button>
-    //   </div>
-    // </div>
   );
 }
 

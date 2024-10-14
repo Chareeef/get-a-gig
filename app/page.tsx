@@ -81,8 +81,8 @@ export default function Home() {
           Find Your Dream Remote Job in Tech
         </h1>
         <h2 className="text-center" data-aos="fade-up">
-          Get-a-Gig connects ALX Software Engineering students with exciting
-          remote job opportunities in the tech industry.
+          Get-a-Gig connects Software Engineers with exciting remote job
+          opportunities in the tech industry.
         </h2>
         <Button data-aos="zoom-in" size="lg" asChild>
           <Link href="/auth/signup">Get Started</Link>
