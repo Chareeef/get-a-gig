@@ -184,9 +184,9 @@ export default function Home() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center justify-center"
-                      style={{ width: "20px", height: "20px" }}
+                      style={{ width: "1.5rem", height: "1.5rem" }}
                     >
-                      <span style={{ fontSize: "20px", fontWeight: "bold" }}>
+                      <span style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
                         𝕏
                       </span>
                     </Link>
@@ -195,14 +195,14 @@ export default function Home() {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <FaLinkedin />
+                      <FaLinkedin className="text-2xl" />
                     </Link>
                     <Link
                       href={member.githubURL}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <FaGithub />
+                      <FaGithub className="text-2xl" />
                     </Link>
                   </div>
                 </CardContent>

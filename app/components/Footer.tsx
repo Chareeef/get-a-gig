@@ -25,11 +25,13 @@ export default function Footer() {
       bio: "Abdelrahman is a former design architect who transitioned into software engineering, applying his creativity and problem-solving skills to the tech industry. With a background in architecture, he brings a unique perspective to building innovative digital solutions.",
       githubURL: "https://github.com/AbduHany",
       linkedinURL: "https://linkedin.com/in/abduhany",
+      xURL: "https://x.com/AbduuHany",
       email: "mailto:abdu.hany@gmail.com",
     },
     {
       name: "Youssef Charif Hamidi",
       bio: "Youssef is a passionate software engineer, committed to building technology that empowers people and creates opportunities for everyone. Inspired by his personal journey, he believes in using innovation to make a positive impact on lives.",
+      xURL: "https://x.com/YoussefCharifH2",
       githubURL: "https://github.com/Chareeef",
       linkedinURL: "https://linkedin.com/in/youssef-charif-hamidi",
       email: "mailto:youssef.charif.h@gmail.com",
@@ -86,6 +88,8 @@ export default function Footer() {
                 <p className="mb-4 text-sm text-muted-foreground">
                   {member.bio}
                 </p>
+
+                {/* Social Links */}
                 <div className="flex space-x-4">
                   <Link
                     href={member.email}
@@ -97,6 +101,22 @@ export default function Footer() {
                       <span className="sr-only">Email {member.name}</span>
                     </Button>
                   </Link>
+
+                  <Link
+                    href={member.xURL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button variant="outline" size="icon">
+                      <span style={{ fontSize: "1rem", fontWeight: "bold" }}>
+                        𝕏
+                      </span>
+                      <span className="sr-only">
+                        {member.name}&apos;s Twitter
+                      </span>
+                    </Button>
+                  </Link>
+
                   <Link
                     href={member.linkedinURL}
                     target="_blank"
@@ -109,6 +129,7 @@ export default function Footer() {
                       </span>
                     </Button>
                   </Link>
+
                   <Link
                     href={member.githubURL}
                     target="_blank"
