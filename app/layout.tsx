@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/app/components/theme-provider";
 import Footer from "@/app/components/Footer";
 import { Toaster } from "@/app/components/ui/sonner";
 import { JobDetailsProvider } from "@/context/JobDetails";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: "Get a Gig",
@@ -65,6 +66,7 @@ export default function RootLayout({
             </JobDetailsProvider>
           </AuthProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
