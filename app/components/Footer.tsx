@@ -49,7 +49,7 @@ export default function Footer() {
   }
 
   return (
-    <footer className="px-4 py-12 md:px-6">
+    <footer className="px-4 pb-8 pt-12 md:px-6">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div className="space-y-4">
@@ -127,7 +127,7 @@ export default function Footer() {
           ))}
         </div>
         <div className="mt-8 border-t border-gray-200 pt-8 text-center text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} GET@GIG. All rights reserved.
+          &copy; {new Date().getFullYear()} Get@Gig. All rights reserved.
         </div>
       </div>
     </footer>

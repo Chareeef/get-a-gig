@@ -8,6 +8,7 @@ import Link from "next/link";
 import LoadingSpinner from "@/app/components/loadingSpinner";
 import "@/styles/jobDescription.css";
 import CoverLetter from "./CoverLetter";
+import categories from "@/lib/jobCategories";
 
 export default function JobView() {
   const {
@@ -49,15 +50,26 @@ export default function JobView() {
       <div className="relative flex max-h-[80dvh] w-full flex-col justify-evenly gap-4 overflow-y-auto rounded-lg bg-white px-2 py-4 text-center dark:bg-gray-800">
         {/* Company Logo */}
         <div className="flex-center">
-          <CompanyLogo logoUrl={job.logoUrl} companyName={job.company} />
+          <CompanyLogo
+            logoUrl={job.logoUrl}
+            companyName={job.company}
+            size={150}
+          />
         </div>
         {/* Job General Infos */}
-        <div className="grid grid-cols-2 rounded-sm border-2 border-gray-300">
+        <div className="grid grid-cols-2 break-all rounded-sm border-2 border-gray-300">
           <div className="flex-center border-b-2 border-r-2 border-gray-300 p-2 text-lg font-bold">
             Title
           </div>
           <div className="flex-center border-b-2 border-gray-300 p-2 text-base font-bold">
             {job.title}
+          </div>
+
+          <div className="flex-center border-b-2 border-r-2 border-gray-300 p-2 text-lg font-bold">
+            Category
+          </div>
+          <div className="flex-center border-b-2 border-gray-300 p-2 text-base font-bold">
+            {categories[job.category]}
           </div>
 
           <div className="flex-center border-b-2 border-r-2 border-gray-300 p-2 text-lg font-bold">

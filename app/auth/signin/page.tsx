@@ -64,7 +64,13 @@ export default function Signin() {
   };
 
   const handleGoogleSignIn = () => {
-    signIn("google", { callbackUrl: "/dashboard" });
+    try {
+      signIn("google", { callbackUrl: "/dashboard" });
+      toast.success("You have been signed in successfully.");
+    } catch (error) {
+      console.error(error);
+      toast.error("An error occurred during sign in.");
+    }
   };
 
   useEffect(() => {

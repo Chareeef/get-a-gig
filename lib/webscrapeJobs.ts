@@ -14,21 +14,7 @@ export async function getAllJobs(): Promise<Job[]> {
   // Get jobs from each category
   for (const category of categories) {
     const categoryJobs = await getJobsByCategory(category as jobCategory);
-    categoryJobs.forEach((job) => {
-      // Check if the job is already processed but has another category
-      const jobWithSameUrlIndex = jobs.findIndex((processedJob) => {
-        return (
-          processedJob.url === job.url && processedJob.categories.length > 0
-        );
-      });
-      if (jobWithSameUrlIndex !== -1) {
-        jobs[jobWithSameUrlIndex].categories.push(category as jobCategory);
-        return;
-      } else {
-        // Add the job
-        jobs.push(job);
-      }
-    });
+    jobs.push(...categoryJobs);
   }
 
   // Return the jobs
@@ -71,7 +57,7 @@ export async function getJobsByCategory(category: jobCategory): Promise<Job[]> {
 
     return {
       title,
-      categories: [category],
+      category,
       location,
       company,
       url,

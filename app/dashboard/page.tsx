@@ -57,6 +57,7 @@ export default function Dashboard() {
       <JobsFilters
         jobs={jobs}
         setFilteredJobs={setFilteredJobs}
+        loadingJobs={loadingJobs}
         setLoadingJobs={setLoadingJobs}
       />
 

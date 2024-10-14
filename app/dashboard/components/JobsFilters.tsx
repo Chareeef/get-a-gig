@@ -9,18 +9,20 @@ import {
   SelectValue,
 } from "@/app/components/ui/select";
 import { useState } from "react";
-import { Job, jobCategory } from "@/types/jobs";
+import { Job } from "@/types/jobs";
 import { Dispatch, SetStateAction } from "react";
 
 interface FilterProps {
   jobs: Job[];
   setFilteredJobs: Dispatch<SetStateAction<Job[]>>;
+  loadingJobs: boolean;
   setLoadingJobs: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function JobFilters({
   jobs,
   setFilteredJobs,
+  loadingJobs,
   setLoadingJobs,
 }: FilterProps) {
   const [title, setTitle] = useState<string>("");
@@ -41,10 +43,7 @@ export default function JobFilters({
     // Filter jobs
     const filtered = jobs.filter((job) => {
       // Eliminates jobs with unmatching category
-      if (
-        category !== "all" &&
-        !job.categories.includes(category as jobCategory)
-      ) {
+      if (category !== "all" && job.category !== category) {
         return false;
       }
 
@@ -122,8 +121,12 @@ export default function JobFilters({
       </div>
 
       {/* Search Button */}
-      <Button size="lg" className="w-full" onClick={filterJobs}>
-        Search
+      <Button
+        size="lg"
+        className={`w-full hover:bg-yellow-500 ${loadingJobs && "bg-yellow-300"}`}
+        onClick={filterJobs}
+      >
+        {loadingJobs ? "Loading..." : "Search"}
       </Button>
     </div>
   );
