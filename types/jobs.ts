@@ -6,7 +6,7 @@ export type jobCategory =
 
 export interface Job {
   title: string;
-  categories: jobCategory[];
+  category: jobCategory;
   location: string;
   company: string;
   url: string;

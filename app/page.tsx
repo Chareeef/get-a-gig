@@ -80,9 +80,9 @@ export default function Home() {
         <h1 className="text-center text-6xl font-bold" data-aos="fade-up">
           Find Your Dream Remote Job in Tech
         </h1>
-        <h2 className="text-center" data-aos="fade-up">
-          Get-a-Gig connects Software Engineers with exciting remote job
-          opportunities in the tech industry.
+        <h2 className="text-center text-3xl" data-aos="fade-up">
+          <span className="font-medium">Get A Gig</span> connects Software
+          Engineers with exciting remote job opportunities in the tech industry.
         </h2>
         <Button data-aos="zoom-in" size="lg" asChild>
           <Link href="/auth/signup">Get Started</Link>

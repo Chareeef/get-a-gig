@@ -11,28 +11,26 @@ import {
   CardTitle,
 } from "@/app/components/ui/card";
 import { Badge } from "@/app/components/ui/badge";
+import categories from "@/lib/jobCategories";
 
 function JobCard({ job }: { job: Job }) {
   const { setIsDetailsOpen, setSelectedJob } = useJobDetails();
-  const categories = {
-    ["full-stack-programming"]: { name: "Full-Stack", color: "bg-red-500" },
-    ["front-end-programming"]: { name: "Frontend", color: "bg-blue-500" },
-    ["back-end-programming"]: { name: "Backend", color: "bg-green-500" },
-    ["devops-sysadmin"]: { name: "DevOps", color: "bg-yellow-500" },
-  };
 
   function openJobView() {
     setIsDetailsOpen(true);
     setSelectedJob(job);
   }
-  console.log(job);
 
   return (
     <div key={job.url}>
-      <Card className="flex h-full flex-col justify-between bg-gray-200 dark:bg-gray-800">
+      <Card className="flex h-full flex-col justify-between break-all bg-gray-200 dark:bg-gray-800">
         <CardHeader className="p-4">
           <CardTitle className="flex items-center justify-between">
-            <CompanyLogo logoUrl={job.logoUrl} companyName={job.company} />
+            <CompanyLogo
+              logoUrl={job.logoUrl}
+              companyName={job.company}
+              size={50}
+            />
             <p>{job.company}</p>
           </CardTitle>
         </CardHeader>
@@ -51,7 +49,7 @@ function JobCard({ job }: { job: Job }) {
         <CardFooter className="flex items-center justify-between px-4 pb-4">
           <div>
             <Badge variant="outline" className="border-black dark:border-white">
-              {categories[job.categories[0]].name}
+              {categories[job.category]}
             </Badge>
           </div>
           <Button size="sm" onClick={openJobView}>
