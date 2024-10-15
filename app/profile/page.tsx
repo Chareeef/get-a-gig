@@ -40,6 +40,8 @@ export default function Dashboard() {
   const [bio, setBio] = useState<string>("");
   const [isGoogleAuthAccount, setIsGoogleAuthAccount] = useState(false);
 
+  const [isUpdating, setIsUpdating] = useState<boolean>(false);
+
   const form = useForm<UpdateUserFormData>({
     resolver: zodResolver(UpdateUserSchema),
     defaultValues: {
@@ -100,7 +102,10 @@ export default function Dashboard() {
   }, [watchBio]);
 
   async function handleUpdateUser(data: UpdateUserFormData) {
+    setIsUpdating(true);
+
     try {
+      // Update user data
       const res = await fetch("/api/update_user", {
         method: "PUT",
         body: JSON.stringify({ ...data, id: user?.id }),
@@ -121,6 +126,8 @@ export default function Dashboard() {
     } catch (error) {
       console.error(error);
       toast.error("An error occurred while updating the profile.");
+    } finally {
+      setIsUpdating(false);
     }
   }
 
@@ -210,8 +217,11 @@ export default function Dashboard() {
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full">
-            Update Profile
+          <Button
+            type="submit"
+            className={`w-full hover:bg-yellow-500 ${isUpdating && "bg-yellow-300"}`}
+          >
+            {isUpdating ? "Updating..." : "Update Profile"}
           </Button>
         </form>
       </Form>

@@ -22,7 +22,7 @@ export default function ProfileImage({
 
   return (
     <Image
-      className="rounded-full"
+      className="rounded-full border-2 border-yellow-500"
       src={imageURL}
       alt={userName}
       width={128}
